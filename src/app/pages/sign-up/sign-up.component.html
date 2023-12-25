@@ -1,0 +1,43 @@
+<section class="container py-5 px-4 shadow-lg flex flex-column col-4">
+  <div class="flex flex-column align-content-center mb-4 text-center">
+    <h2 class="mb-2">Реєстрація</h2>
+    <span>Введіть ваші дані для створеня облікового запису.</span>
+  </div>
+
+  <div class="flex flex-column w-100">
+    <app-input #input [type]="'text'" [label]="'Ім\'я'" [initialValue]="newUser.firstName" class="block"
+               (valueChanged)="onInputChange('firstName', $event)"/>
+    <app-input #input [type]="'text'" [label]="'Прізвище'" [initialValue]="newUser.lastName"
+               (valueChanged)="onInputChange('lastName', $event)"/>
+    <app-input #input [type]="'phone'" [label]="'Номер телефону'" [initialValue]="newUser.phone"
+               (valueChanged)="onInputChange('phone', $event)"/>
+    <app-input #input [type]="'email'" [label]="'Email'" [initialValue]="newUser.email"
+               (valueChanged)="onInputChange('email', $event)"/>
+    <app-input #input #inputPassword [type]="'password'" [label]="'Пароль'" [initialValue]="newUser.password"
+               (valueChanged)="onInputChange('password', $event)"/>
+    <app-input #input #inputPasswordConfirm [type]="'password'" [label]="'Підтвердження паролю'" [initialValue]="passwordConfirmation"
+               (valueChanged)="onInputChange('passwordConfirmation', $event)">
+    </app-input>
+    @if (inputPassword.inputFormControl.dirty
+      && inputPasswordConfirm.inputFormControl.dirty
+      && this.values['password'] !== this.values['passwordConfirmation']
+        ){
+        <mat-error>Паролі не співпадають. Перевірте правильність введеного та спробуйте ще.</mat-error>
+      }
+    <app-button type="button" text="Зареєструватися" color="primary"
+                (click)="onSignUpClick({
+                  firstName: values['firstName'],
+                  lastName: values['lastName'],
+                  phone: values['phone'],
+                  email: values['email'],
+                  password: values['password']})"
+                [disabled]="values['email'] === undefined
+                  || values['password'] === undefined
+                  || values['phone'] === undefined
+                  || values['firstName'] === undefined
+                  || values['lastName'] === undefined
+                  || values['passwordConfirmation'] === undefined
+                  || input.inputFormControl.invalid"
+    />
+  </div>
+</section>

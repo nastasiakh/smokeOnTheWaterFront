@@ -1,0 +1,8 @@
+<ng-container>
+  <button *ngIf="type === 'button'" mat-raised-button [color]="color" [disabled]="disabled" class="btn">
+    {{text}}
+  </button>
+  <a *ngIf="type === 'link'" mat-raised-button [disabled]="disabled" [color]="color" href="https://www.google.com/" class="btn">
+    {{text}}
+  </a>
+</ng-container>
