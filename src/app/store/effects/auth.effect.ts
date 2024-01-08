@@ -11,7 +11,10 @@ export class AuthEffect {
     ofType(AuthActions.login),
     mergeMap(({ email, password }) => this.authService.login(email, password)
       .pipe(
-        map(({ token }) => AuthActions.loginSuccess({ token })),
+        map(({ token, user }) => {
+          location.replace('admin/home')
+          return AuthActions.loginSuccess({ token, user })
+        }),
         catchError(error => of(AuthActions.loginFailure({error: 'Authentication failed'})))
       )
     )
