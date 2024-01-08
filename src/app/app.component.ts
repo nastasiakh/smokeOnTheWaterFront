@@ -6,7 +6,8 @@ import {ButtonComponent} from "./components/shared/button/button.component";
 import {LoginComponent} from "./pages/login/login.component";
 import {SignUpComponent} from "./pages/sign-up/sign-up.component";
 import {HomeComponent} from "./pages/home/home.component";
-import {BrowserModule} from "@angular/platform-browser";
+import {UsersListComponent as AdminUsersComponent} from "./pages/admin/pages/users/users-list.component";
+import {LayoutComponent} from "./components/shared/layout/layout.component";
 
 
 @Component({
@@ -25,6 +26,9 @@ import {BrowserModule} from "@angular/platform-browser";
     LoginComponent,
     SignUpComponent,
 
+    AdminUsersComponent,
+
+    LayoutComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

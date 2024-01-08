@@ -8,6 +8,8 @@ import {provideEffects} from '@ngrx/effects';
 import {authReducer} from "./store/reducers/auth.reducer";
 import {AuthEffect} from "./store/effects/auth.effect";
 import {provideHttpClient} from "@angular/common/http";
+import {UserEffect} from "./store/effects/user.effect";
+import {userReducer} from "./store/reducers/user.reducer";
 
 
 export const appConfig: ApplicationConfig = {
@@ -16,10 +18,13 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideStore({
       auth: authReducer,
+      users: userReducer,
     }),
     provideEffects([
       AuthEffect,
+      UserEffect,
     ]),
-    provideHttpClient()
-  ]
+    provideHttpClient(),
+    provideAnimations()
+]
 };
