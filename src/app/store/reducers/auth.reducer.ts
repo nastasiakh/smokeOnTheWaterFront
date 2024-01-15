@@ -1,5 +1,5 @@
 import {createReducer, on} from "@ngrx/store";
-import * as AuthActions from '../actions/auth.actions';
+import * as AuthActions from '../actions/auth.action';
 import {SignUpDto} from "../../dtos/signUp.dto";
 export interface AuthState {
   token: string | null;

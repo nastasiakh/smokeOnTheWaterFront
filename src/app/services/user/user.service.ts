@@ -3,6 +3,7 @@ import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {UserModel} from "../../models/UserModel";
+import {SignUpDto} from "../../dtos/signUp.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +12,14 @@ export class UserService {
 private apiUrl = environment.apiUrl;
   constructor( private http: HttpClient) { }
 
-  createUser(newUser: any): Observable<{ user: any }> {
+  createUser(newUser: UserModel ): Observable<{ user: UserModel }> {
     const url = `${this.apiUrl}/users/`;
-    return this.http.post<{ user: any }>(url, newUser);
+    return this.http.post<{ user: UserModel }>(url, newUser);
   };
 
-  updateUser(userId: number, updatedUser: any): Observable<{ user: any }> {
+  updateUser(userId: number, updatedUser: any): Observable<{ user: UserModel }> {
     const url = `${this.apiUrl}/users/${userId}`;
-    return this.http.put<{user: any}>(url, updatedUser)
+    return this.http.put<{user: UserModel}>(url, updatedUser)
   }
 
   getUsers(): Observable<UserModel[]> {
@@ -26,14 +27,14 @@ private apiUrl = environment.apiUrl;
     return this.http.get<UserModel[]>(url);
   }
 
-  getUserById(userId: number): Observable<{ user: any }> {
+  getUserById(userId: number): Observable<UserModel> {
     const url = `${this.apiUrl}/users/${userId}`;
-    return this.http.get<{user: any}>(url);
+    return this.http.get<UserModel>(url);
   }
 
-  deleteUser(userId: number): Observable<{ user: any }> {
+  deleteUser(userId: number): Observable<{ user: UserModel }> {
     const url = `${this.apiUrl}/users/${userId}`;
-    return this.http.delete<{user: any}>(url);
+    return this.http.delete<{user: UserModel}>(url);
   }
 
 }

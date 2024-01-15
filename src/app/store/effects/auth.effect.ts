@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import * as AuthActions from '../actions/auth.actions';
+import * as AuthActions from '../actions/auth.action';
 import {catchError, exhaustMap, map, mergeMap, of} from "rxjs";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {AuthService} from "../../services/auth/auth.service";

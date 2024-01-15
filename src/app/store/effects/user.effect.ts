@@ -1,55 +1,53 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {UserService} from "../../services/user/user.service";
-import * as UserActions from "../actions/user.actions";
+import * as UserActions from "../actions/user.action";
 import {catchError, concatMap, map, mergeMap, of, switchMap} from "rxjs";
 
 @Injectable()
 export class UserEffect {
   createUser$ = createEffect(() => this.actions$.pipe(
-    ofType(UserActions.createUser),
-    mergeMap(action => this.userService.createUser(action.user)
-      .pipe(
-        map(user => UserActions.createUserSuccess({user})),
-        catchError(error => of(UserActions.createUserFailure(error)))
-      )
+    ofType(UserActions.createUserActions.createUser),
+    mergeMap(user => {
+      return this.userService.createUser(user.user)
+        .pipe(
+          map(() => UserActions.createUserActions.createUserSuccess()),
+          catchError(error => of(UserActions.createUserActions.createUserFailure(error)))
+        )
+      }
     )
   ));
 
   updateUser$ = createEffect(() => this.actions$.pipe(
-    ofType(UserActions.updateUser),
+    ofType(UserActions.updateUserActions.updateUser),
     mergeMap(action => this.userService.updateUser(action.userId, action.updatedUser)
       .pipe(
-        map(user => UserActions.updateUserSuccess(user)),
-        catchError(error => of(UserActions.updateUserFailure(error)))
+        map(user => UserActions.updateUserActions.updateUserSuccess(user)),
+        catchError(error => of(UserActions.updateUserActions.updateUserFailure(error)))
       ))
   ));
 
   loadUsers$ = createEffect( () => this.actions$.pipe(
-    ofType(UserActions.loadUsers),
+    ofType(UserActions.loadUsersActions.loadUsers),
     switchMap(() => this.userService.getUsers().pipe(
-      map(users => {
-        console.log('1', {users})
-        console.log('2', users)
-        return UserActions.loadUsersSuccess({ users });
-      }),
-      catchError(error => of(UserActions.loadUsersFailure(error)))
+      map(users => UserActions.loadUsersActions.loadUsersSuccess({ users })),
+      catchError(error => of(UserActions.loadUsersActions.loadUsersFailure(error)))
     ))
   ));
 
   loadUserById$ = createEffect(() => this.actions$.pipe(
-    ofType(UserActions.loadUserById),
+    ofType(UserActions.loadUserByIdActions.loadUserById),
     mergeMap(action => this.userService.getUserById(action.userId).pipe(
-      map( user => UserActions.loadUserSuccess(user)),
-      catchError(error => of(UserActions.loadUserFailure(error)))
+      map( user => UserActions.loadUserByIdActions.loadUserByIdSuccess({ user })),
+      catchError(error => of(UserActions.loadUserByIdActions.loadUserByIdFailure(error)))
     ))
   ));
 
   deleteUser$ = createEffect(() => this.actions$.pipe(
-    ofType(UserActions.deleteUser),
+    ofType(UserActions.deleteUserActions.deleteUser),
     mergeMap(action => this.userService.deleteUser(action.userId).pipe(
-      map(user => UserActions.deleteUserSuccess(user)),
-      catchError(error => of(UserActions.deleteUserFailure(error)))
+      map(user => UserActions.deleteUserActions.deleteUserSuccess(user)),
+      catchError(error => of(UserActions.deleteUserActions.deleteUserFailure(error)))
     ))
   ))
 

@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -10,6 +10,9 @@ import {AuthEffect} from "./store/effects/auth.effect";
 import {provideHttpClient} from "@angular/common/http";
 import {UserEffect} from "./store/effects/user.effect";
 import {userReducer} from "./store/reducers/user.reducer";
+import {RoleEffect} from "./store/effects/role.effect";
+import {roleReducer} from "./store/reducers/role.reducer";
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 
 export const appConfig: ApplicationConfig = {
@@ -17,14 +20,17 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimations(),
     provideStore({
-      auth: authReducer,
-      users: userReducer,
+        auth: authReducer,
+        users: userReducer,
+        roles: roleReducer,
     }),
     provideEffects([
-      AuthEffect,
-      UserEffect,
+        AuthEffect,
+        UserEffect,
+        RoleEffect,
     ]),
     provideHttpClient(),
-    provideAnimations()
+    provideAnimations(),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
 ]
 };

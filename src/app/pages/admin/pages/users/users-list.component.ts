@@ -1,30 +1,47 @@
-import {Component, Input} from '@angular/core';
-import {MatTableModule} from "@angular/material/table";
+import {Component} from '@angular/core';
 import {select, Store} from "@ngrx/store";
-import {loadUsers} from "../../../../store/actions/user.actions";
-import {selectUsers, selectUserState} from "../../../../store/selectors/user.selector";
-import {Observable} from "rxjs";
+import {loadUsersActions} from "../../../../store/actions/user.action";
+import {selectUsers} from "../../../../store/selectors/selectors";
 import {UserModel} from "../../../../models/UserModel";
+import {EntitiesListComponent} from "../../../../components/shared/entities-list/entities-list.component";
+import {ButtonComponent} from "../../../../components/shared/button/button.component";
+import {RouterLink} from "@angular/router";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-admin-users',
   standalone: true,
-  imports: [MatTableModule],
+  imports: [EntitiesListComponent, ButtonComponent, RouterLink, NgIf],
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.css'
 })
 export class UsersListComponent {
-  @Input() displayedColumns: string[] = ['name', 'email', 'phone', 'role'];
-  dataSource: UserModel[] = [];
+  displayedColumns: string[] = ['id', 'name', 'email', 'phone', 'roles'];
+  userData: UserModel[] = [];
+  dataSource: any[] = [];
 
   constructor(private store: Store) {
   }
 
-  ngOnInit() {
-    this.store.dispatch(loadUsers());
+  ngOnInit(): void {
+    this.loadUserData();
+
+  }
+
+  loadUserData(): void {
+    this.store.dispatch(loadUsersActions.loadUsers());
     this.store.pipe(select(selectUsers)).subscribe(users => {
       if (users) {
-        this.dataSource = users;
+        this.userData = users;
+        this.dataSource = this.userData.map(user => {
+          return {
+            id: user.id,
+            name: `${user.firstName} ${user.lastName}`,
+            email: user.email,
+            phone: user.phone,
+            roles: user.roles?.map(role => role.name).join(', ')
+          }
+        })
       }
     })
   }

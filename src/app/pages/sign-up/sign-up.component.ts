@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import {InputComponent} from "../../components/shared/input/input.component";
 import {ButtonComponent} from "../../components/shared/button/button.component";
 import {Store} from "@ngrx/store";
-import * as AuthActions from "../../store/actions/auth.actions";
+import * as AuthActions from "../../store/actions/auth.action";
 import {SignUpDto} from "../../dtos/signUp.dto";
 import {ReactiveFormsModule} from "@angular/forms";
-import {ErrorStateMatcher} from "@angular/material/core";
 import {MatFormFieldModule} from "@angular/material/form-field";
 
 @Component({
@@ -21,7 +20,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
   styleUrl: './sign-up.component.css'
 })
 export class SignUpComponent {
-  newUser = {
+  newUser: SignUpDto = {
     firstName: '',
     lastName: '',
     phone: '',

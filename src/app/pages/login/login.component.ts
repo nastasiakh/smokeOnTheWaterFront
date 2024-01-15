@@ -3,7 +3,7 @@ import {InputComponent} from "../../components/shared/input/input.component";
 import {NgIf} from "@angular/common";
 import {ButtonComponent} from "../../components/shared/button/button.component";
 import {Store} from "@ngrx/store";
-import * as AuthActions from '../../store/actions/auth.actions';
+import * as AuthActions from '../../store/actions/auth.action';
 import { ReactiveFormsModule, } from "@angular/forms";
 
 @Component({

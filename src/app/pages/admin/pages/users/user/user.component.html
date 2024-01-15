@@ -1,1 +1,44 @@
-<p>user works!</p>
+<div>
+  <div class="d-flex justify-content-between align-center mb-4">
+    <h2>User modification</h2>
+  </div>
+  <div *ngIf="user$ | async as user">
+    <app-input type="text" label="Name" [initialValue]="user.firstName"
+               (valueChanged)="onInputChange('firstName', $event)"/>
+    <app-input type="text" label="Surname" [initialValue]="user.lastName"
+               (valueChanged)="onInputChange('lastName', $event)"/>
+    <app-input type="phone" label="Phone" [initialValue]="user.phone" (valueChanged)="onInputChange('phone', $event)"/>
+    <app-input type="email" label="Email" [initialValue]="user.email" (valueChanged)="onInputChange('email', $event)"/>
+
+    <div *ngIf="isCreatingUser">
+      <app-input #input #inputPassword type="password" label="Password" [initialValue]="user.password"
+                 (valueChanged)="onInputChange('password', $event)"/>
+      <app-input #input #inputPasswordConfirm type="password" label="Confirm password"
+                 [initialValue]="passwordConfirmation"
+                 (valueChanged)="onInputChange('passwordConfirmation', $event)">
+      </app-input>
+      @if (inputPassword.inputFormControl.dirty
+      && inputPasswordConfirm.inputFormControl.dirty
+      && this.values['password'] !== this.values['passwordConfirmation']) {
+        <mat-error>Паролі не співпадають. Перевірте правильність введеного та спробуйте ще.</mat-error>
+      }
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+      <app-button [text]="user.id ? 'Save changes' : 'Create user'" type="button" color="accent" (click)="saveUser({
+      id: user.id,
+      firstName: values['firstName'] ? values['firstName'] : user.firstName,
+      lastName: values['lastName'] ? values['lastName'] : user.lastName,
+      phone: values['phone'] ? values['phone'] : user.phone,
+      email: values['email'] ? values['email'] : user.email,
+      password: user.password ? user.password : values['password'],
+      roles: user.roles
+      })"
+      />
+
+      <app-button *ngIf="user.id" text="Delete user" iconName="delete" iconColor="accent" color="primary"
+                  (click)="removeUser(user.id)"/>
+    </div>
+
+  </div>
+
+</div>
