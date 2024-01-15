@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, SimpleChanges} from '@angular/core';
 import {
   FormControl,
   Validators,
@@ -8,7 +8,7 @@ import {
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault} from "@angular/common";
-import {InputModel} from "../../../models/InputModel";
+import {NgxMatIntlTelInputComponent} from "ngx-mat-intl-tel-input";
 
 
 @Component({
@@ -22,7 +22,8 @@ import {InputModel} from "../../../models/InputModel";
     NgIf,
     NgSwitch,
     NgSwitchCase,
-    NgSwitchDefault
+    NgSwitchDefault,
+    NgxMatIntlTelInputComponent
   ],
   templateUrl: './input.component.html',
   styleUrl: './input.component.css'
@@ -66,7 +67,11 @@ export class InputComponent {
 
     this.inputFormControl.invalid.valueOf();
   }
-
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['initialValue']) {
+      this.inputFormControl.setValue(this.initialValue);
+    }
+  }
   getValue(): string {
     return this.inputFormControl.value;
   }
