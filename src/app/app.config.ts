@@ -1,8 +1,8 @@
-import { ApplicationConfig, isDevMode } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {ApplicationConfig, isDevMode} from '@angular/core';
+import {provideRouter} from '@angular/router';
 
-import { routes } from './app.routes';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import {routes} from './app.routes';
+import {provideAnimations} from '@angular/platform-browser/animations';
 import {provideStore} from '@ngrx/store';
 import {provideEffects} from '@ngrx/effects';
 import {authReducer} from "./store/reducers/auth.reducer";
@@ -12,7 +12,9 @@ import {UserEffect} from "./store/effects/user.effect";
 import {userReducer} from "./store/reducers/user.reducer";
 import {RoleEffect} from "./store/effects/role.effect";
 import {roleReducer} from "./store/reducers/role.reducer";
-import { provideStoreDevtools } from '@ngrx/store-devtools';
+import {provideStoreDevtools} from '@ngrx/store-devtools';
+import {permissionReducer} from "./store/reducers/permission.reducer";
+import {PermissionEffect} from "./store/effects/permission.effect";
 
 
 export const appConfig: ApplicationConfig = {
@@ -20,17 +22,19 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimations(),
     provideStore({
-        auth: authReducer,
-        users: userReducer,
-        roles: roleReducer,
+      auth: authReducer,
+      users: userReducer,
+      roles: roleReducer,
+      permissions: permissionReducer,
     }),
     provideEffects([
-        AuthEffect,
-        UserEffect,
-        RoleEffect,
+      AuthEffect,
+      UserEffect,
+      RoleEffect,
+      PermissionEffect,
     ]),
     provideHttpClient(),
     provideAnimations(),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
-]
+    provideStoreDevtools({maxAge: 25, logOnly: !isDevMode()})
+  ]
 };

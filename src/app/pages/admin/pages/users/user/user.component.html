@@ -23,6 +23,14 @@
         <mat-error>Паролі не співпадають. Перевірте правильність введеного та спробуйте ще.</mat-error>
       }
     </div>
+    <mat-form-field>
+      <mat-label>Roles</mat-label>
+      <mat-select multiple [(ngModel)]="chosenRoles">
+        @for (role of (roles$ | async); track role) {
+          <mat-option [value]="role.id">{{role.name}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
     <div class="d-flex justify-content-between align-items-center">
       <app-button [text]="user.id ? 'Save changes' : 'Create user'" type="button" color="accent" (click)="saveUser({
       id: user.id,

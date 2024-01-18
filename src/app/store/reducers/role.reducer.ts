@@ -1,8 +1,7 @@
 import {RoleModel} from "../../models/RoleModel";
 import {createReducer, on} from "@ngrx/store";
 import * as RoleActions from "../actions/role.action";
-import {state} from "@angular/animations";
-import * as UserActions from "../actions/user.action";
+
 
 export interface RoleState {
   roles?: RoleModel[];
