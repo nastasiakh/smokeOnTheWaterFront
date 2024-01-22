@@ -1,0 +1,43 @@
+@import '../src/assets/style-config';
+
+// Использование темной темы
+$enable-dark: true;
+
+:root{
+  color: $primary-light;
+  $primary: $primary;
+  $accent: $accent;
+}
+
+$accent-text: $white-accent;
+$primary-text: $black;
+
+html, body { height: 100%; background: $primary; color: $accent-text;}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;  }
+
+//Backgrounds
+.layout{
+  height: 100%;
+  background: $primary;
+}
+.gradient-bg{
+  background: $black;
+  background: linear-gradient(0deg, #131212FF 36%, #4F4C4CFF 100%);
+}
+
+.gradient-rad-bg{
+  background: $black;
+  background: linear-gradient(204deg, #131212FF 36%, #4F4C4CFF 100%);
+}
+
+//Buttons
+.mdc-button.btn[color="primary"] {
+  color: $white-accent;
+  border: 1px solid $white-accent;
+}
+
+/* Добавьте стили для конкретного компонента */
+mat-card {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}

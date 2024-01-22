@@ -25,9 +25,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/custom-theme.scss",
-              "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/assets/style-config.scss",
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -86,8 +86,7 @@
               "src/assets"
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/pink-bluegrey.css",
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }

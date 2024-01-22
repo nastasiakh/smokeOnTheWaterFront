@@ -18,6 +18,8 @@ import {
   MatSnackBarModule
 } from "@angular/material/snack-bar";
 import {NavAdminComponent} from "./components/shared/nav-admin/nav-admin.component";
+import {HeaderComponent} from "./components/shared/header/header.component";
+import {FooterComponent} from "./components/shared/footer/footer.component";
 
 
 @Component({
@@ -36,6 +38,8 @@ import {NavAdminComponent} from "./components/shared/nav-admin/nav-admin.compone
     InputComponent,
     EntitiesListComponent,
     NavAdminComponent,
+    HeaderComponent,
+    FooterComponent,
 
     HomeComponent,
     LoginComponent,

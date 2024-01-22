@@ -1,13 +1,16 @@
-<div class="container-fluid layout">
-  <header>
+<div class="container-fluid p-0 layout">
+  <header class="bg-gradient">
     <ng-content select="[header]"></ng-content>
   </header>
-  <nav>
-    <ng-content select="[nav]"></ng-content>
-  </nav>
-  <main class="container">
-    <ng-content></ng-content>
-  </main>
+  <div class="d-flex flex-row h-100">
+    <nav class="d-flex col-lg-3 gradient-rad-bg">
+      <ng-content select="[nav]"></ng-content>
+    </nav>
+    <main class="container d-flex col-lg-9">
+      <ng-content></ng-content>
+    </main>
+  </div>
+
   <footer>
     <ng-content select="[footer]"></ng-content>
   </footer>
