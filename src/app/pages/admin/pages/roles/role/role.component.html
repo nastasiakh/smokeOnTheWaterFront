@@ -1,0 +1,39 @@
+<div>
+  <div class="d-flex justify-content-between align-center mb-4">
+    <h2>Role modification</h2>
+  </div>
+
+  <div *ngIf="role$ | async as role">
+    <app-input type="text" label="Name" [initialValue]="role.name"
+               (valueChanged)="onInputChange('name', $event)"/>
+
+    <div class="example-section">
+      <span class="example-list-section">
+        <mat-checkbox class="example-margin" [checked]="allGiven"
+                      (change)="giveAllPermissions($event.checked)">
+          Give all
+        </mat-checkbox>
+      </span>
+      <div *ngIf="(permissions$ | async) as permissions">
+        <ng-container *ngFor="let permission of permissions; trackBy: trackById">
+          <mat-checkbox [checked]="givenPermissions?.includes(permission.id)"
+                        (change)="togglePermission(permission.id)">
+            {{permission.title}}
+          </mat-checkbox>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <app-button [text]="role.id ? 'Save changes' : 'Create role'" type="button" color="accent" (click)="saveRole({
+          id: role.id,
+          name: values['name'] ? values['name'] : role.name,
+          permissions: role.permissions
+      })"/>
+
+      <app-button *ngIf="role.id" text="Delete user" iconName="delete" iconColor="accent" color="primary"
+                  (click)="removeRole(role.id)"/>
+    </div>
+
+  </div>
+</div>
