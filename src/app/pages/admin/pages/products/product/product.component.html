@@ -1,0 +1,48 @@
+<div>
+  <div class="d-flex justify-content-between align-center mb-4">
+    <h2>Product modification</h2>
+  </div>
+  <div *ngIf="product$ | async as product">
+    <app-input type="text" label="Title" [initialValue]="product.title"
+               (valueChanged)="onInputChange('title', $event)"/>
+    <app-input type="text" label="Description" [initialValue]="product.description"
+               (valueChanged)="onInputChange('description', $event)"/>
+    <app-input type="text" label="Meta title" [initialValue]="product.metaTitle"
+               (valueChanged)="onInputChange('metaTitle', $event)"/>
+    <app-input type="text" label="Meta descriptions" [initialValue]="product.metaDescription"
+               (valueChanged)="onInputChange('metaDescription', $event)"/>
+    <app-input type="text" label="Sku" [initialValue]="product.sku" (valueChanged)="onInputChange('sku', $event)"/>
+    <app-input type="text" label="Images" [initialValue]="product.images" (valueChanged)="onInputChange('images', $event)"/>
+    <app-input type="number" label="Quantity" [initialValue]="product.quantity" (valueChanged)="onInputChange('quantity', $event)"/>
+    <app-input type="number" label="Price" [initialValue]="product.price" (valueChanged)="onInputChange('price', $event)"/>
+
+    <mat-form-field>
+      <mat-label>Product</mat-label>
+      <mat-select multiple [(ngModel)]="chosenCategories">
+        @for (cat of (categories$ | async); track cat) {
+          <mat-option [value]="cat.id">{{cat.title}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <div class="d-flex justify-content-between align-items-center">
+      <app-button [text]="product.id ? 'Save changes' : 'Create product'" type="button" color="accent" (click)="saveProduct({
+        images: values['images'] ? values['images'] : product.images,
+        id: product.id,
+        title: values['title'] ? values['title'] : product.title,
+        description: values['description'] ? values['description'] : product.description,
+        metaTitle: values['metaTitle'] ? values['metaTitle'] : product.metaTitle,
+        metaDescription: values['metaDescription'] ? values['metaDescription'] : product.metaDescription,
+        sku: values['sku'] ? values['sku'] : product.sku,
+        quantity: parseInt(values['quantity']) ? parseInt(values['quantity']) : product.quantity,
+        price: values['price'] ? parseFloat(values['price']) : product.price,
+        categories: product.categories
+      })"
+      />
+
+      <app-button *ngIf="product.id" text="Delete product" iconName="delete" iconColor="accent" color="primary"
+                  (click)="removeProduct(product.id)"/>
+    </div>
+
+  </div>
+
+</div>

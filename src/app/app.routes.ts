@@ -22,6 +22,10 @@ import {roleReducer} from "./store/reducers/role.reducer";
 import {RoleEffect} from "./store/effects/role.effect";
 import {permissionReducer} from "./store/reducers/permission.reducer";
 import {PermissionEffect} from "./store/effects/permission.effect";
+import {productReducer} from "./store/reducers/product.reducer";
+import {ProductEffect} from "./store/effects/product.effect";
+import {categoryReducer} from "./store/reducers/category.reducer";
+import {CategoryEffect} from "./store/effects/category.effect";
 
 export const routes: Routes = [
   { path: 'auth/login', component: LoginComponent },
@@ -55,12 +59,16 @@ export const routes: Routes = [
       users: userReducer,
       roles: roleReducer,
       permissions: permissionReducer,
+      products: productReducer,
+      category: categoryReducer,
     }),
     EffectsModule.forRoot([
       AuthEffect,
       UserEffect,
       RoleEffect,
-      PermissionEffect
+      PermissionEffect,
+      ProductEffect,
+      CategoryEffect
     ])
   ],
   exports: [RouterModule, StoreModule, EffectsModule],

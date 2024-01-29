@@ -31,13 +31,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;  }
 }
 
 //Buttons
-.mdc-button.btn[color="primary"] {
+app-button .mdc-button.btn.mat-primary {
   color: $white-accent;
-  border: 1px solid $white-accent;
+  padding: 10px 15px 5px 15px;
+}
+app-button .mdc-button.btn.mat-accent {
+  color: $white-accent;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid $accent;
 }
 
 /* Добавьте стили для конкретного компонента */
 mat-card {
   background-color: #f0f0f0;
   border-radius: 8px;
+}
+
+//Table
+table .mat-mdc-header-row, table .mat-mdc-row{
+  color: $white-accent
 }

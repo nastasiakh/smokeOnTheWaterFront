@@ -1,0 +1,45 @@
+<div>
+  <div class="d-flex justify-content-between align-center mb-4">
+    <h2>Category modification</h2>
+  </div>
+  <div *ngIf="category$ | async as category">
+    <app-input type="text" label="Title" [initialValue]="category.title"
+               (valueChanged)="onInputChange('title', $event)"/>
+    <app-input type="text" label="Description" [initialValue]="category.description"
+               (valueChanged)="onInputChange('description', $event)"/>
+    <app-input type="text" label="Meta title" [initialValue]="category.metaTitle"
+               (valueChanged)="onInputChange('metaTitle', $event)"/>
+    <app-input type="text" label="Meta description" [initialValue]="category.metaDescription"
+               (valueChanged)="onInputChange('metaDescription', $event)"/>
+    <app-input type="text" label="Image" [initialValue]="category.image" (valueChanged)="onInputChange('image', $event)"/>
+
+    <mat-form-field>
+      <mat-label>Roles</mat-label>
+      <mat-select multiple [(ngModel)]="chosenParentsCategories">
+        <ng-container *ngFor="let cat of (categories$ | async)">
+          <mat-option [value]="cat.id" [disabled]="cat.id === currentCategoryId">
+            {{ cat.title }}
+          </mat-option>
+        </ng-container>
+
+      </mat-select>
+    </mat-form-field>
+    <div class="d-flex justify-content-between align-items-center">
+      <app-button [text]="category.id ? 'Save changes' : 'Create category'" type="button" color="accent" (click)="saveCategory({
+      id: category.id,
+      title: values['title'] ? values['title'] : category.title,
+      description: values['description'] ? values['description'] : category.description,
+      metaTitle: values['metaTitle'] ? values['metaTitle'] : category.metaTitle,
+      metaDescription: values['metaDescription'] ? values['metaDescription'] : category.metaDescription,
+      image: values['image'] ? values['image'] : category.image,
+      parentId: category.parentId
+      })"
+      />
+
+      <app-button *ngIf="category.id" text="Delete category" iconName="delete" iconColor="accent" color="primary"
+                  (click)="removeCategory(category.id)"/>
+    </div>
+
+  </div>
+
+</div>

@@ -15,6 +15,10 @@ import {roleReducer} from "./store/reducers/role.reducer";
 import {provideStoreDevtools} from '@ngrx/store-devtools';
 import {permissionReducer} from "./store/reducers/permission.reducer";
 import {PermissionEffect} from "./store/effects/permission.effect";
+import {productReducer} from "./store/reducers/product.reducer";
+import {ProductEffect} from "./store/effects/product.effect";
+import {CategoryEffect} from "./store/effects/category.effect";
+import {categoryReducer} from "./store/reducers/category.reducer";
 
 
 export const appConfig: ApplicationConfig = {
@@ -26,12 +30,16 @@ export const appConfig: ApplicationConfig = {
       users: userReducer,
       roles: roleReducer,
       permissions: permissionReducer,
+      products: productReducer,
+      categories: categoryReducer,
     }),
     provideEffects([
       AuthEffect,
       UserEffect,
       RoleEffect,
       PermissionEffect,
+      ProductEffect,
+      CategoryEffect,
     ]),
     provideHttpClient(),
     provideAnimations(),

@@ -30,9 +30,9 @@ import {NgxMatIntlTelInputComponent} from "ngx-mat-intl-tel-input";
 })
 export class InputComponent {
   showPasswordOnPress: boolean = false;
-  @Input() type: "email" | "password" | "phone" | "text" = 'text';
+  @Input() type: "email" | "password" | "phone" | "text" | "number" = 'text';
   @Input() label: string = "";
-  @Input() initialValue: string = "";
+  @Input() initialValue: string | number = "";
   @Input() textRequired: boolean = true;
 
   inputFormControl = new FormControl();
