@@ -1,13 +1,14 @@
 <div class="container-fluid p-0 layout">
   <header class="bg-gradient">
-    <ng-content select="[header]"></ng-content>
+    <app-header />
   </header>
-  <div class="d-flex flex-row h-100">
-    <nav class="d-flex col-lg-3 gradient-rad-bg">
-      <ng-content select="[nav]"></ng-content>
+  <div class="d-flex flex-row h-100 stick">
+    <nav class="d-flex col-lg-3 gradient-rad-bg min-vh-100">
+      <app-nav-admin class="w-100 h-100" />
     </nav>
-    <main class="container d-flex col-lg-9">
-      <ng-content></ng-content>
+    <main class="container h-100 w-100">
+      <router-outlet style="position: relative">
+      </router-outlet>
     </main>
   </div>
 
@@ -15,3 +16,6 @@
     <ng-content select="[footer]"></ng-content>
   </footer>
 </div>
+
+
+

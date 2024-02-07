@@ -1,1 +1,5 @@
-<p>orders works!</p>
+<div>
+  <h2>Orders</h2>
+  <app-button type="link" routerLink="/admin/orders/newOrder" text="Make Order" color="accent"/>
+  <app-entities-list *ngIf="dataSource.length > 0" [dataSource]="dataSource" [displayedColumns]="displayedColumns"/>
+</div>

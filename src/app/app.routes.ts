@@ -12,6 +12,8 @@ import {CategoriesListComponent as AdminCategoriesComponent} from "./pages/admin
 import {CategoryComponent as AdminCategoryComponent} from "./pages/admin/pages/categories/category/category.component";
 import {ProductsListComponent as AdminProductsComponent} from "./pages/admin/pages/products/products-list.component";
 import {ProductComponent as AdminProductComponent} from "./pages/admin/pages/products/product/product.component";
+import {OrdersListComponent as AdminOrdersComponent} from "./pages/admin/pages/orders/orders-list.component";
+import {OrderComponent as AdminOrderComponent} from "./pages/admin/pages/orders/order/order.component";
 import {StoreModule} from "@ngrx/store";
 import {authReducer} from "./store/reducers/auth.reducer";
 import {EffectsModule} from "@ngrx/effects";
@@ -26,6 +28,9 @@ import {productReducer} from "./store/reducers/product.reducer";
 import {ProductEffect} from "./store/effects/product.effect";
 import {categoryReducer} from "./store/reducers/category.reducer";
 import {CategoryEffect} from "./store/effects/category.effect";
+import {orderReducer} from "./store/reducers/order.reducer";
+import {OrderEffect} from "./store/effects/order.effect";
+import {LayoutComponent} from "./components/shared/layout/layout.component";
 
 export const routes: Routes = [
   { path: 'auth/login', component: LoginComponent },
@@ -44,6 +49,9 @@ export const routes: Routes = [
   { path: 'admin/products', component: AdminProductsComponent},
   { path: 'admin/products/newProduct', component: AdminProductComponent},
   { path: 'admin/products/:productId', component: AdminProductComponent},
+  { path: 'admin/orders', component: AdminOrdersComponent},
+  { path: 'admin/order/newOrder', component: AdminOrderComponent},
+  { path: 'admin/orders/:orderId', component: AdminOrderComponent},
 
 
   { path: '', component: HomeComponent},
@@ -53,7 +61,7 @@ export const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' }),
+    RouterModule.forChild([{path: '', pathMatch: 'full', component: LayoutComponent, children: routes}]),
     StoreModule.forRoot({
       auth: authReducer,
       users: userReducer,
@@ -61,6 +69,7 @@ export const routes: Routes = [
       permissions: permissionReducer,
       products: productReducer,
       category: categoryReducer,
+      order: orderReducer,
     }),
     EffectsModule.forRoot([
       AuthEffect,
@@ -68,7 +77,8 @@ export const routes: Routes = [
       RoleEffect,
       PermissionEffect,
       ProductEffect,
-      CategoryEffect
+      CategoryEffect,
+      OrderEffect,
     ])
   ],
   exports: [RouterModule, StoreModule, EffectsModule],

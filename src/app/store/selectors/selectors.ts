@@ -5,6 +5,7 @@ import {AuthState} from "../reducers/auth.reducer";
 import {PermissionState} from "../reducers/permission.reducer";
 import {ProductState} from "../reducers/product.reducer";
 import {CategoryState} from "../reducers/category.reducer";
+import {OrderState} from "../reducers/order.reducer";
 
 
 export interface AppState{
@@ -20,6 +21,8 @@ export const selectRoleState = createFeatureSelector<RoleState>("roles");
 export const selectPermissionState = createFeatureSelector<PermissionState>("permissions");
 export const selectProductState = createFeatureSelector<ProductState>("products");
 export const selectCategoryState = createFeatureSelector<CategoryState>("categories");
+export const selectOrderState = createFeatureSelector<OrderState>("orders");
+
 export const selectUsers = createSelector(
   selectUserState,
   (state) => state.users
@@ -60,3 +63,12 @@ export const selectCategory = createSelector(
   selectCategoryState,
   (state) => state.category || null
 );
+
+export const selectOrders = createSelector(
+  selectOrderState,
+  (state) => state.orders
+)
+export const selectOrder = createSelector(
+  selectOrderState,
+  (state) => state.order || null
+)

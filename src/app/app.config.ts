@@ -19,6 +19,8 @@ import {productReducer} from "./store/reducers/product.reducer";
 import {ProductEffect} from "./store/effects/product.effect";
 import {CategoryEffect} from "./store/effects/category.effect";
 import {categoryReducer} from "./store/reducers/category.reducer";
+import {OrderEffect} from "./store/effects/order.effect";
+import {orderReducer} from "./store/reducers/order.reducer";
 
 
 export const appConfig: ApplicationConfig = {
@@ -32,6 +34,7 @@ export const appConfig: ApplicationConfig = {
       permissions: permissionReducer,
       products: productReducer,
       categories: categoryReducer,
+      orders: orderReducer,
     }),
     provideEffects([
       AuthEffect,
@@ -40,6 +43,7 @@ export const appConfig: ApplicationConfig = {
       PermissionEffect,
       ProductEffect,
       CategoryEffect,
+      OrderEffect,
     ]),
     provideHttpClient(),
     provideAnimations(),
