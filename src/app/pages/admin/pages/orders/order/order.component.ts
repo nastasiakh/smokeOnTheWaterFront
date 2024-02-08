@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {map, Observable, of, switchMap, take} from "rxjs";
+import {catchError, map, Observable, of, switchMap, take} from "rxjs";
 import {OrderProductModel} from "../../../../../models/OrderProductModel";
 import {ProductModel} from "../../../../../models/ProductModel";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
@@ -14,7 +14,12 @@ import {
   selectOrderState,
   selectProducts,
 } from "../../../../../store/selectors/selectors";
-import {deleteOrderActions, loadOrderByIdActions} from "../../../../../store/actions/order.action";
+import {
+  createOrderActions,
+  deleteOrderActions,
+  loadOrderByIdActions,
+  updateOrderActions
+} from "../../../../../store/actions/order.action";
 import {OrderWithProductsModel} from "../../../../../models/OrderWithProductsModel";
 import {ButtonComponent} from "../../../../../components/shared/button/button.component";
 import {AddressModel} from "../../../../../models/AddressModel";
@@ -58,6 +63,7 @@ export class OrderComponent {
   selectedProduct: ProductModel = {} as ProductModel;
 
   isCreatingOrder = true;
+  total: number = 0;
 
   constructor(private store: Store, private route: ActivatedRoute, private router: Router,
               private snackBar: MatSnackBar,) {
@@ -105,11 +111,6 @@ export class OrderComponent {
     return this.store.pipe(select(selectProducts))
   }
 
-
-  saveOrder() {
-    console.log(this.values)
-  }
-
   updateQuantity(productInCart: OrderProductModel): void {
     let productIndex = this.selectedProducts.findIndex(p => p.productId === productInCart.productId);
     if (productIndex != -1) {
@@ -125,30 +126,106 @@ export class OrderComponent {
         }
       });
     }
+    this.calculateTotal();
   }
 
   onProductSelection(product: ProductModel): void {
-    const existingProductIndex = this.selectedProducts.findIndex(p => p.productId === product.id);
-    if (existingProductIndex === -1 && product.id) {
-      this.selectedProducts.push({
-        productId: product.id,
-        title: product.title,
-        sku: product.sku,
-        quantity: 1,
-        price: product.price
-      });
-      this.selectedProduct = {} as ProductModel;
+    if (product.id) {
+      const existingProductIndex = this.selectedProducts.findIndex(p => p.productId === product.id);
+      if (existingProductIndex === -1) {
+        this.selectedProducts.push({
+          productId: product.id,
+          title: product.title,
+          sku: product.sku,
+          quantity: 1,
+          price: product.price
+        });
+        this.selectedProduct = {} as ProductModel;
+      }
     }
+    this.calculateTotal();
   }
 
   removeProductFromCart(product: OrderProductModel): void {
     if (product) {
       this.selectedProducts = this.selectedProducts.filter(p => p.productId !== product.productId);
     }
+    this.calculateTotal();
+
   }
+
+  calculateTotal(): void {
+    this.total = this.selectedProducts.reduce((acc, curr) => {
+      return acc + (curr.price * curr.quantity);
+    }, 0);
+  }
+
 
   isProductDisabled(productId: number | undefined): boolean {
     return this.selectedProducts.some(p => p.productId === productId);
+  }
+
+  filterAddressFields(): AddressModel {
+    const newAddress = {
+      country: this.values['address.country'],
+      region: this.values['address.region'],
+      location: this.values['address.location'],
+      street: this.values['address.street'],
+      houseNum: this.values['address.houseNum'],
+      zipcode: this.values['address.zipcode'],
+      apartment: parseInt(this.values['address.apartment'])
+    }
+    Object.keys(this.values).forEach((key) => {
+      if (key.startsWith('address.')) {
+        delete this.values[key];
+      }
+    });
+    return newAddress;
+  }
+
+  saveOrder(order: OrderModel) {
+    let updatedProducts = this.selectedProducts;
+    let updatedOrderValues: OrderModel = {
+      ...order, address: {...this.address, ...this.filterAddressFields()},
+      ...this.values,
+      totalAmount: this.total,
+      customerId: undefined,
+      status: this.isCreatingOrder ? 'created' : 'changed'
+    };
+
+    if (!this.isCreatingOrder && order.id) {
+      updatedProducts.forEach(prod => {
+        if (!prod.orderId) {
+          prod.orderId = this.orderId
+        }
+      });
+      this.store.dispatch(updateOrderActions.updateOrder({
+        orderId: order.id,
+        updatedOrder: {
+          order: updatedOrderValues,
+          orderProducts: updatedProducts
+        }
+      }))
+    } else {
+      this.store.dispatch(createOrderActions.createOrder({
+        order: {
+          order: updatedOrderValues,
+          orderProducts: updatedProducts
+        }
+      }))
+    }
+
+    this.store.pipe(select(selectOrderState), catchError(error => {
+      return of(error)
+    })).subscribe(orderState => {
+      if (orderState?.orderModified) {
+        this.showSuccessSnackBar("Changes saved")
+        setTimeout(() => this.navigateToOrderList(), 2000);
+      } else if (orderState?.error) {
+        this.showErrorSnackBar("Changes weren't saved")
+        console.error("Order not modified: ", orderState?.error)
+      }
+    })
   }
 
   removeOrder(orderId: number) {

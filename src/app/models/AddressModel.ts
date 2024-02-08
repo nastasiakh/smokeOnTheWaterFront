@@ -6,5 +6,4 @@ export interface AddressModel {
   houseNum: string;
   apartment: number;
   zipcode: string;
-
 }

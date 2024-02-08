@@ -2,7 +2,7 @@
   <div class="mb-4">
     <h2>Order modification</h2>
   </div>
-  <div *ngIf="order$ | async as order" >
+  <div *ngIf="order$ | async as order">
     <div class="d-flex flex-column flex-lg-row justify-content-between">
       <div class="d-flex col-lg-4 flex-column">
         <app-input type="text" label="Name" [initialValue]="order.firstName"
@@ -16,20 +16,20 @@
       </div>
       <div class="d-flex col-lg-6 flex-column">
         <app-input type="text" label="Country" [initialValue]="address.country"
-                   (valueChanged)="onInputChange('country', $event)"/>
+                   (valueChanged)="onInputChange('address.country', $event)"/>
         <app-input type="text" label="Region" [initialValue]="address.region"
-                   (valueChanged)="onInputChange('region', $event)"/>
+                   (valueChanged)="onInputChange('address.region', $event)"/>
         <app-input type="text" label="City or residential area" [initialValue]="address.location"
-                   (valueChanged)="onInputChange('location', $event)"/>
+                   (valueChanged)="onInputChange('address.location', $event)"/>
         <app-input type="text" label="Street" [initialValue]="address.street"
-                   (valueChanged)="onInputChange('street', $event)"/>
+                   (valueChanged)="onInputChange('address.street', $event)"/>
         <div class="d-flex w-100 justify-content-between">
           <app-input type="text" label="House number" [initialValue]="address.houseNum" class="col-3"
-                     (valueChanged)="onInputChange('houseNum', $event)"/>
+                     (valueChanged)="onInputChange('address.houseNum', $event)"/>
           <app-input type="number" label="Apartment" [initialValue]="address.apartment" class="col-2"
-                     (valueChanged)="onInputChange('apartment', $event)"/>
+                     (valueChanged)="onInputChange('address.apartment', $event)"/>
           <app-input type="text" label="Zipcode" [initialValue]="address.zipcode" class="col-3"
-                     (valueChanged)="onInputChange('zipcode', $event)"/>
+                     (valueChanged)="onInputChange('address.zipcode', $event)"/>
         </div>
       </div>
     </div>
@@ -39,7 +39,8 @@
       <mat-form-field>
         <mat-label>Products</mat-label>
         <mat-select [(ngModel)]="selectedProduct" (selectionChange)="onProductSelection($event.value)">
-          <mat-option *ngFor="let product of (products$ | async)" [value]="product" [disabled]="isProductDisabled(product.id)">
+          <mat-option *ngFor="let product of (products$ | async)" [value]="product"
+                      [disabled]="isProductDisabled(product.id)">
             {{ product.title }}
           </mat-option>
         </mat-select>
@@ -66,14 +67,18 @@
             <input type="number" [(ngModel)]="product.quantity" (change)="updateQuantity(product)">
           </td>
           <td>{{ product.price }}</td>
-          <td><button (click)="removeProductFromCart(product)">Remove</button></td>
+          <td>
+            <button (click)="removeProductFromCart(product)">Remove</button>
+          </td>
         </tr>
         </tbody>
       </table>
+      <span>{{ total }}</span>
     </div>
 
     <div class="d-flex justify-content-between align-items-center">
-      <app-button [text]="order.id ? 'Save changes' : 'Create user'" type="button" color="accent" (click)="saveOrder()" />
+      <app-button [text]="order.id ? 'Save changes' : 'Create order'" type="button" color="accent"
+                  (click)="saveOrder(order)"/>
       <app-button *ngIf="order.id" text="Delete user" iconName="delete" iconColor="accent" color="primary"
                   (click)="removeOrder(order.id)"/>
     </div>
