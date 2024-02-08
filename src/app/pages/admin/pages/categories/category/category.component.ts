@@ -111,7 +111,7 @@ export class CategoryComponent {
       if(categoryState?.categoryModified) {
         this.showSuccessSnackBar("Changes saved")
         this.navigateToCategoryList();
-      } else {
+      } else if (categoryState?.error){
         this.showErrorSnackBar("Changes weren't saved")
         console.error("Category not modified: ", categoryState?.error)
       }

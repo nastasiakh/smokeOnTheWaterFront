@@ -128,7 +128,7 @@ export class RoleComponent {
       if(roleState?.roleModified) {
         this.navigateToRolesList();
         this.showSuccessSnackBar("Changes saved")
-      } else {
+      } else if (roleState?.error){
         this.showErrorSnackBar("Changes weren't saved")
         console.error("Changes weren't saved ", roleState?.error.error)
       }

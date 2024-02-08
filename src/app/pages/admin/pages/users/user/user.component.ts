@@ -105,7 +105,7 @@ export class UserComponent implements OnInit {
       if(userState?.userModified) {
         this.showSuccessSnackBar("Changes saved")
         this.navigateToUsersList();
-      } else {
+      } else if (userState?.error){
         this.showErrorSnackBar("Changes weren't saved")
         console.error("User not modified: ", userState?.error)
       }

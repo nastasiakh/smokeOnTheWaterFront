@@ -122,7 +122,7 @@ export class ProductComponent {
       if (productState.productRemoved) {
         this.navigateToProductList();
         this.showSuccessSnackBar('Product successfully deleted');
-      } else {
+      } else if (productState?.error) {
         this.showSuccessSnackBar('Product deleting failed');
       }
     })
