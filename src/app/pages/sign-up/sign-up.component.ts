@@ -6,6 +6,7 @@ import * as AuthActions from "../../store/actions/auth.action";
 import {SignUpDto} from "../../dtos/signUp.dto";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-sign-up',
@@ -14,7 +15,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     InputComponent,
     ButtonComponent,
     ReactiveFormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    RouterLink
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css'
@@ -40,8 +42,8 @@ export class SignUpComponent {
 
   onSignUpClick(newUser: SignUpDto): void {
     if (this.values['password'] !== this.values['passwordConfirmation']) {
-      throw new Error();
+      throw new Error();;
     }
-    this.store.dispatch(AuthActions.signUp(newUser));
+    this.store.dispatch(AuthActions.authorisationActions.signUp({newUser: newUser}));
   }
 }

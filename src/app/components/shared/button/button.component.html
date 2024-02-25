@@ -3,7 +3,7 @@
     <mat-icon [color]="iconColor" *ngIf="iconName">{{ iconName }}</mat-icon>
     {{text}}
   </button>
-  <a *ngIf="type === 'link'" mat-raised-button [disabled]="disabled" [color]="color" class="btn">
+  <a *ngIf="type === 'link'" [routerLink]="link" mat-raised-button [disabled]="disabled" [color]="color" class="btn">
     {{text}}
   </a>
 </ng-container>

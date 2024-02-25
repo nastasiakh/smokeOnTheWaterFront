@@ -2,9 +2,9 @@
   <header class="bg-gradient">
     <app-header />
   </header>
-  <div class="d-flex flex-row h-100 stick">
+  <div class="d-flex flex-row h-100">
     <nav class="d-flex col-lg-3 gradient-rad-bg min-vh-100">
-      <app-nav-admin class="w-100 h-100" />
+      <app-nav-admin *ngIf="checkForAdmin()" class="w-100 h-100" />
     </nav>
     <main class="container h-100 w-100">
       <router-outlet style="position: relative">

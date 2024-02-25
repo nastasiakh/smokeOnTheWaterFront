@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {NgIf, NgSwitch} from "@angular/common";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-button',
@@ -10,7 +11,8 @@ import {MatIconModule} from "@angular/material/icon";
     NgSwitch,
     MatButtonModule,
     MatIconModule,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './button.component.html',
   styleUrl: './button.component.css'

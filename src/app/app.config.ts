@@ -7,7 +7,7 @@ import {provideStore} from '@ngrx/store';
 import {provideEffects} from '@ngrx/effects';
 import {authReducer} from "./store/reducers/auth.reducer";
 import {AuthEffect} from "./store/effects/auth.effect";
-import {provideHttpClient} from "@angular/common/http";
+import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {UserEffect} from "./store/effects/user.effect";
 import {userReducer} from "./store/reducers/user.reducer";
 import {RoleEffect} from "./store/effects/role.effect";
@@ -21,6 +21,7 @@ import {CategoryEffect} from "./store/effects/category.effect";
 import {categoryReducer} from "./store/reducers/category.reducer";
 import {OrderEffect} from "./store/effects/order.effect";
 import {orderReducer} from "./store/reducers/order.reducer";
+import {authInterceptor} from "./interceptors/auth/auth.interceptor";
 
 
 export const appConfig: ApplicationConfig = {
@@ -45,7 +46,7 @@ export const appConfig: ApplicationConfig = {
       CategoryEffect,
       OrderEffect,
     ]),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimations(),
     provideStoreDevtools({maxAge: 25, logOnly: !isDevMode()})
   ]

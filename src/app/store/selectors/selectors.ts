@@ -14,19 +14,41 @@ export interface AppState{
   auth: AuthState;
   permissions: PermissionState;
   products: ProductState;
+  categories: CategoryState;
+  orders: OrderState;
 }
 
-export const selectUserState = createFeatureSelector<UserState>("users");
-export const selectRoleState = createFeatureSelector<RoleState>("roles");
-export const selectPermissionState = createFeatureSelector<PermissionState>("permissions");
-export const selectProductState = createFeatureSelector<ProductState>("products");
-export const selectCategoryState = createFeatureSelector<CategoryState>("categories");
-export const selectOrderState = createFeatureSelector<OrderState>("orders");
+export const selectAuthState = createFeatureSelector<AppState["auth"]>("auth");
+export const selectUserState = createFeatureSelector<AppState["users"]>("users");
+export const selectRoleState = createFeatureSelector<AppState["roles"]>("roles");
+export const selectPermissionState = createFeatureSelector<AppState["permissions"]>("permissions");
+export const selectProductState = createFeatureSelector<AppState["products"]>("products");
+export const selectCategoryState = createFeatureSelector<AppState["categories"]>("categories");
+export const selectOrderState = createFeatureSelector<AppState["orders"]>("orders");
+
+
+export const selectToken = createSelector(
+  selectAuthState,
+  (state) => state.token
+);
+export const selectCurrentUser = createSelector(
+  selectAuthState,
+  (state) => state.user
+);
+export const selectCurrentUserRoles = createSelector(
+  selectAuthState,
+  (state) => state.user?.roles
+);
 
 export const selectUsers = createSelector(
   selectUserState,
   (state) => state.users
 );
+export const selectUser = createSelector(
+  selectUserState,
+  (state) => state.user || null
+);
+
 export const selectProducts = createSelector(
   selectProductState,
   (state) => state.products
@@ -34,11 +56,6 @@ export const selectProducts = createSelector(
 export const selectProduct = createSelector(
   selectProductState,
   (state) => state.product || null
-);
-
-export const selectUser = createSelector(
-  selectUserState,
-  (state) => state.user || null
 );
 
 export const selectRoles = createSelector(

@@ -3,17 +3,23 @@
     <h2 class="mb-2">Вхід</h2>
     <span>Введіть ваші дані для входу в особистий кабінет.</span>
   </div>
-
-  <div class="flex flex-column w-100">
-    <app-input #input type="email" label="Email" [initialValue]="emailValue"
-               (valueChanged)="onInputChange('email', $event)"></app-input>
-    <app-input #input type="password" label="Password" [initialValue]="passwordValue"
-               (valueChanged)="onInputChange('password', $event)"></app-input>
-  </div>
-  <app-button text="Login" type="button"  (click)="onLoginClick(values['email'], values['password'])"
-              color="primary"
-              [disabled]="values['email'] === undefined
+  <div class="mb-4">
+    <div class="flex flex-column w-100">
+      <app-input #input type="email" label="Email" [initialValue]="emailValue"
+                 (valueChanged)="onInputChange('email', $event)"></app-input>
+      <app-input #input type="password" label="Password" [initialValue]="passwordValue"
+                 (valueChanged)="onInputChange('password', $event)"></app-input>
+    </div>
+    <app-button text="Login" type="button" (click)="onLoginClick(values['email'], values['password'])"
+                color="primary"
+                [disabled]="values['email'] === undefined
               || values['password'] === undefined
               || input.inputFormControl.invalid"
-  />
+    />
+  </div>
+
+  <div class="text-center">
+    <span>Не маєте акаунту? <span routerLink="auth/sign-up">Давайте створимо.</span></span>
+  </div>
+
 </section>
