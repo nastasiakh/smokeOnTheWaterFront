@@ -18,7 +18,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatSelectModule} from "@angular/material/select";
 import {loadRolesActions} from "../../../../../store/actions/role.action";
 import {RoleModel} from "../../../../../models/RoleModel";
-import {markIgnoreDiagnostics} from "@angular/compiler-cli/src/ngtsc/typecheck/src/comments";
+import {ProvidePermissionCheck} from "../../../../../utils/providePermissionCheck";
 
 @Component({
   selector: 'app-user',
@@ -44,7 +44,8 @@ export class UserComponent implements OnInit {
   chosenRoles: (number | undefined)[] | undefined = [];
   roles$: Observable<RoleModel[] | undefined> = of([] as RoleModel[]);
   isCreatingUser = true;
-  constructor(private store: Store<{user: UserModel}>, private route: ActivatedRoute, private router: Router, private snackBar: MatSnackBar) {}
+  constructor(private store: Store<{user: UserModel}>, private route: ActivatedRoute, private router: Router,
+              private snackBar: MatSnackBar, protected permissionCheck: ProvidePermissionCheck) {}
 
   ngOnInit(): void {
     this.roles$ = this.loadRoles();

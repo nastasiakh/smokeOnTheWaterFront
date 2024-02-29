@@ -24,6 +24,7 @@ import {
 } from "../../../../../store/selectors/selectors";
 
 import {loadCategoriesActions} from "../../../../../store/actions/category.action";
+import {ProvidePermissionCheck} from "../../../../../utils/providePermissionCheck";
 
 @Component({
   selector: 'app-product',
@@ -51,7 +52,8 @@ export class ProductComponent {
   isCreatingProduct = true;
   protected readonly parseInt = parseInt;
   protected readonly parseFloat = parseFloat;
-  constructor(private store: Store<{product: ProductModel}>, private route: ActivatedRoute, private router: Router, private snackBar: MatSnackBar) {}
+  constructor(private store: Store<{product: ProductModel}>, private route: ActivatedRoute, private router: Router,
+              private snackBar: MatSnackBar, protected permissionCheck: ProvidePermissionCheck) {}
 
   ngOnInit(): void {
     this.categories$ = this.loadCategories();

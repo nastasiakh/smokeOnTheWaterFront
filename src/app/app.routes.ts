@@ -40,7 +40,7 @@ export const routes: Routes = [
     canActivate: [adminAuthGuard],
     canActivateChild: [adminAuthGuard],
     children: [
-      { path: 'home', component: HomeComponent},
+      { path: 'home', component: AdminHomeComponent},
       { path: 'users', component: UsersListComponent},
       { path: 'users/:userId', component: UserComponent },
       { path: 'users/newUser', component: UserComponent },

@@ -32,7 +32,7 @@ export const selectToken = createSelector(
   (state) => state.token
 );
 export const selectCurrentUser = createSelector(
-  selectAuthState,
+  selectUserState,
   (state) => state.user
 );
 export const selectCurrentUserRoles = createSelector(

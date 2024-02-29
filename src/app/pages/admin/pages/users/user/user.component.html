@@ -32,7 +32,8 @@
       </mat-select>
     </mat-form-field>
     <div class="d-flex justify-content-between align-items-center">
-      <app-button [text]="user.id ? 'Save changes' : 'Create user'" type="button" color="accent" (click)="saveUser({
+      <app-button *ngIf="permissionCheck.isAllowed('user.create' || 'user.update')"
+        [text]="user.id ? 'Save changes' : 'Create user'" type="button" color="accent" (click)="saveUser({
       id: user.id,
       firstName: values['firstName'] ? values['firstName'] : user.firstName,
       lastName: values['lastName'] ? values['lastName'] : user.lastName,
@@ -43,7 +44,7 @@
       })"
       />
 
-      <app-button *ngIf="user.id" text="Delete user" iconName="delete" iconColor="accent" color="primary"
+      <app-button *ngIf="user.id && permissionCheck.isAllowed('user.delete')" text="Delete user" iconName="delete" iconColor="accent" color="primary"
                   (click)="removeUser(user.id)"/>
     </div>
 

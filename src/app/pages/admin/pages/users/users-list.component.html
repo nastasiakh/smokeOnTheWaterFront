@@ -1,5 +1,5 @@
 <div>
   <h2>Users of portal</h2>
-  <app-button type="link" routerLink="/admin/users/newUser" text="Create User" color="accent"/>
+  <app-button *ngIf="permissionCheck.isAllowed('user.create' || 'user.getOne')"type="link" routerLink="/admin/users/newUser" text="Create User" color="accent"/>
   <app-entities-list *ngIf="dataSource.length > 0" [dataSource]="dataSource" [displayedColumns]="displayedColumns"/>
 </div>

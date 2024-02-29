@@ -28,6 +28,7 @@ import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {FormsModule} from "@angular/forms";
+import {ProvidePermissionCheck} from "../../../../../utils/providePermissionCheck";
 
 @Component({
   selector: 'app-order',
@@ -66,7 +67,7 @@ export class OrderComponent {
   total: number = 0;
 
   constructor(private store: Store, private route: ActivatedRoute, private router: Router,
-              private snackBar: MatSnackBar,) {
+              private snackBar: MatSnackBar, protected permissionCheck: ProvidePermissionCheck) {
   }
 
   ngOnInit(): void {

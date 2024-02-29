@@ -18,6 +18,7 @@ import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {FormsModule} from "@angular/forms";
+import {ProvidePermissionCheck} from "../../../../../utils/providePermissionCheck";
 
 @Component({
   selector: 'app-category',
@@ -46,7 +47,8 @@ export class CategoryComponent {
   categories$: Observable<CategoryModel[] | undefined> = of([] as CategoryModel[]);
   isCreatingCategory = true;
 
-  constructor(private store: Store<{category: CategoryModel}>, private route: ActivatedRoute, private router: Router, private snackBar: MatSnackBar) {}
+  constructor(private store: Store<{category: CategoryModel}>, private route: ActivatedRoute, private router: Router,
+              private snackBar: MatSnackBar, protected permissionCheck: ProvidePermissionCheck) { }
 
   ngOnInit(): void {
     this.categories$ = this.loadCategories();

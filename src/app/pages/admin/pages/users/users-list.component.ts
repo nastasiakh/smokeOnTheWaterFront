@@ -7,6 +7,7 @@ import {EntitiesListComponent} from "../../../../components/shared/entities-list
 import {ButtonComponent} from "../../../../components/shared/button/button.component";
 import {RouterLink} from "@angular/router";
 import {NgIf} from "@angular/common";
+import {ProvidePermissionCheck} from "../../../../utils/providePermissionCheck";
 
 @Component({
   selector: 'app-admin-users',
@@ -20,7 +21,7 @@ export class UsersListComponent {
   userData: UserModel[] = [];
   dataSource: any[] = [];
 
-  constructor(private store: Store) {
+  constructor(private store: Store, protected permissionCheck: ProvidePermissionCheck) {
   }
 
   ngOnInit(): void {

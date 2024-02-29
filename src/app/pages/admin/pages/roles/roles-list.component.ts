@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ButtonComponent} from "../../../../components/shared/button/button.component";
 import {EntitiesListComponent} from "../../../../components/shared/entities-list/entities-list.component";
 import {NgIf} from "@angular/common";
@@ -7,6 +7,7 @@ import {RoleModel} from "../../../../models/RoleModel";
 import {select, Store} from "@ngrx/store";
 import {selectRoles} from "../../../../store/selectors/selectors";
 import {loadRolesActions} from "../../../../store/actions/role.action";
+import {ProvidePermissionCheck} from "../../../../utils/providePermissionCheck";
 
 @Component({
   selector: 'app-roles-list',
@@ -20,12 +21,12 @@ import {loadRolesActions} from "../../../../store/actions/role.action";
   templateUrl: './roles-list.component.html',
   styleUrl: './roles-list.component.css'
 })
-export class RolesListComponent {
+export class RolesListComponent implements OnInit{
   displayedColumns: string[] = ['id', 'name'];
   rolesData: RoleModel[] = [];
   dataSource: any[] = [];
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, protected permissionCheck: ProvidePermissionCheck) {}
 
   ngOnInit(): void {
     this.loadUserData();

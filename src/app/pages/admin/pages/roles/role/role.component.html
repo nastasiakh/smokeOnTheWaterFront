@@ -25,13 +25,14 @@
     </div>
 
     <div class="d-flex justify-content-between align-items-center">
-      <app-button [text]="role.id ? 'Save changes' : 'Create role'" type="button" color="accent" (click)="saveRole({
+      <app-button *ngIf="permissionCheck.isAllowed('role.create' || 'role.update')"
+        [text]="role.id ? 'Save changes' : 'Create role'" type="button" color="accent" (click)="saveRole({
           id: role.id,
           name: values['name'] ? values['name'] : role.name,
           permissions: role.permissions
       })"/>
 
-      <app-button *ngIf="role.id" text="Delete user" iconName="delete" iconColor="accent" color="primary"
+      <app-button *ngIf="role.id && permissionCheck.isAllowed('role.delete')" text="Delete user" iconName="delete" iconColor="accent" color="primary"
                   (click)="removeRole(role.id)"/>
     </div>
 

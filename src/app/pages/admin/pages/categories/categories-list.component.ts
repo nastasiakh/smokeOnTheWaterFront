@@ -7,6 +7,7 @@ import {select, Store} from "@ngrx/store";
 import {selectCategories} from "../../../../store/selectors/selectors";
 import {CategoryModel} from "../../../../models/CategoryModel";
 import {loadCategoriesActions} from "../../../../store/actions/category.action";
+import {ProvidePermissionCheck} from "../../../../utils/providePermissionCheck";
 
 @Component({
   selector: 'app-categories',
@@ -25,7 +26,7 @@ export class CategoriesListComponent {
   categoryData: CategoryModel[] = [];
   dataSource: any[] = [];
 
-  constructor(private store: Store) {
+  constructor(private store: Store, protected permissionCheck: ProvidePermissionCheck) {
   }
 
   ngOnInit(): void {

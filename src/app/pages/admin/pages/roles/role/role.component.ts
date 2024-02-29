@@ -19,7 +19,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {PermissionModel} from "../../../../../models/PermissionModel";
 import {FormsModule} from "@angular/forms";
 import {loadPermissionsActions} from "../../../../../store/actions/permission.action";
-import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
+import {ProvidePermissionCheck} from "../../../../../utils/providePermissionCheck";
 
 
 @Component({
@@ -46,7 +46,8 @@ export class RoleComponent {
   previousGivenPermissions: number[]|undefined = [];
   isCreatingRole = true;
   allGiven: boolean = false;
-  constructor(private store: Store, private route: ActivatedRoute, private router: Router, private snackBar: MatSnackBar) {}
+  constructor(private store: Store, private route: ActivatedRoute, private router: Router, private snackBar: MatSnackBar,
+              protected permissionCheck: ProvidePermissionCheck) {}
 
   ngOnInit(): void {
     this.route.paramMap.pipe(

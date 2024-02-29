@@ -34,12 +34,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;  }
 app-button .mdc-button.btn.mat-primary {
   color: $white-accent;
   padding: 10px 15px 5px 15px;
+  background: #8f0b0c;
 }
 app-button .mdc-button.btn.mat-accent {
   color: $white-accent;
   padding: 10px 15px;
   border-radius: 8px;
   border: 1px solid $accent;
+  background: none;
 }
 
 /* Добавьте стили для конкретного компонента */

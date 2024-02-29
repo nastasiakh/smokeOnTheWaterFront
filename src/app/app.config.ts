@@ -22,6 +22,7 @@ import {categoryReducer} from "./store/reducers/category.reducer";
 import {OrderEffect} from "./store/effects/order.effect";
 import {orderReducer} from "./store/reducers/order.reducer";
 import {authInterceptor} from "./interceptors/auth/auth.interceptor";
+import {ProvidePermissionCheck} from "./utils/providePermissionCheck";
 
 
 export const appConfig: ApplicationConfig = {
@@ -48,6 +49,8 @@ export const appConfig: ApplicationConfig = {
     ]),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimations(),
-    provideStoreDevtools({maxAge: 25, logOnly: !isDevMode()})
+    provideStoreDevtools({maxAge: 25, logOnly: !isDevMode()}),
+    ProvidePermissionCheck,
+
   ]
 };

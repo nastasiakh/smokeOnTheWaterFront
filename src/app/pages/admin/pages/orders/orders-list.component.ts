@@ -7,6 +7,7 @@ import {ButtonComponent} from "../../../../components/shared/button/button.compo
 import {EntitiesListComponent} from "../../../../components/shared/entities-list/entities-list.component";
 import {NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
+import {ProvidePermissionCheck} from "../../../../utils/providePermissionCheck";
 
 @Component({
   selector: 'app-admin-orders',
@@ -24,7 +25,7 @@ export class OrdersListComponent {
   displayedColumns: string[] = ['id', 'status', 'creating date', 'total amount', 'customer name'];
   ordersData: OrderModel[] = [];
   dataSource: any[] = [];
-  constructor(private store: Store) {}
+  constructor(private store: Store, protected permissionCheck: ProvidePermissionCheck) {}
 
   ngOnInit(): void {
     this.loadOrderData()

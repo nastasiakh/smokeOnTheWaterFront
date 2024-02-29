@@ -25,7 +25,8 @@
       </mat-select>
     </mat-form-field>
     <div class="d-flex justify-content-between align-items-center">
-      <app-button [text]="product.id ? 'Save changes' : 'Create product'" type="button" color="accent" (click)="saveProduct({
+      <app-button *ngIf="permissionCheck.isAllowed('product.create' || 'product.update')"
+        [text]="product.id ? 'Save changes' : 'Create product'" type="button" color="accent" (click)="saveProduct({
         images: values['images'] ? values['images'] : product.images,
         id: product.id,
         title: values['title'] ? values['title'] : product.title,
@@ -39,7 +40,7 @@
       })"
       />
 
-      <app-button *ngIf="product.id" text="Delete product" iconName="delete" iconColor="accent" color="primary"
+      <app-button *ngIf="product.id && permissionCheck.isAllowed('product.delete')" text="Delete product" iconName="delete" iconColor="accent" color="primary"
                   (click)="removeProduct(product.id)"/>
     </div>
 

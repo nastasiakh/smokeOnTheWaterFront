@@ -1,5 +1,5 @@
 <div>
   <h2>Products</h2>
-  <app-button type="link" routerLink="/admin/products/newProduct" text="Create Product" color="accent"/>
+  <app-button *ngIf="permissionCheck.isAllowed('product.getOne' || 'product.create')" type="link" routerLink="/admin/products/newProduct" text="Create Product" color="accent"/>
   <app-entities-list *ngIf="dataSource.length > 0" [dataSource]="dataSource" [displayedColumns]="displayedColumns"/>
 </div>

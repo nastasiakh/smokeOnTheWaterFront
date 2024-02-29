@@ -77,9 +77,9 @@
     </div>
 
     <div class="d-flex justify-content-between align-items-center">
-      <app-button [text]="order.id ? 'Save changes' : 'Create order'" type="button" color="accent"
+      <app-button *ngIf="permissionCheck.isAllowed('order.create' || 'order.update')" [text]="order.id ? 'Save changes' : 'Create order'" type="button" color="accent"
                   (click)="saveOrder(order)"/>
-      <app-button *ngIf="order.id" text="Delete user" iconName="delete" iconColor="accent" color="primary"
+      <app-button *ngIf="order.id && permissionCheck.isAllowed('order.delete')" text="Delete user" iconName="delete" iconColor="accent" color="primary"
                   (click)="removeOrder(order.id)"/>
     </div>
   </div>

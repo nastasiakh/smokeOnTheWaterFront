@@ -1,5 +1,5 @@
 <div>
   <h2>Roles of portal</h2>
-  <app-button type="link" routerLink="/admin/roles/newRole" text="Create Role" color="accent"/>
+  <app-button *ngIf="permissionCheck.isAllowed('role.create' || 'role.getOne')" type="link" routerLink="/admin/roles/newRole" text="Create Role" color="accent"/>
   <app-entities-list *ngIf="dataSource.length > 0" [dataSource]="dataSource" [displayedColumns]="displayedColumns"/>
 </div>

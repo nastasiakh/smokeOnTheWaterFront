@@ -34,6 +34,9 @@ export class LayoutComponent implements OnInit{
 
   checkForAdmin(): boolean {
     const userRoles = this.$admin?.roles?.map(role => role.name)
+    if (userRoles === undefined){
+      return false;
+    }
     return !(userRoles?.length === 1 && userRoles.includes("client"));
   }
 }
